@@ -1,37 +1,34 @@
 import { useState, forwardRef } from "react";
 import type { ChangeEvent } from "react";
-import { FaInfoCircle } from "react-icons/fa";
 import AlertDialog from "../AlertDialog/AlertDialog";
+import { FaInfoCircle } from "react-icons/fa";
 
-interface InputFieldProps {
-  label: string;
+interface Option {
   value: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  id?: string;
+  label: string;
+}
+
+interface SelectInputProps {
+  label: string;
   name: string;
+  value: string;
+  onChange: (e: ChangeEvent<HTMLSelectElement>) => void;
+  options: Option[];
+  id?: string;
   required?: boolean;
-  type?: string;
-  min?: string | number;
-  max?: string | number;
-  placeholder?: string;
-  maxLength?: number;
   infoTitle?: string;
   infoText?: string;
   customClass?: string;
 }
 
-const InputField = forwardRef<HTMLInputElement, InputFieldProps>(({
+const SelectInput = forwardRef<HTMLSelectElement, SelectInputProps>(({
   label,
+  name,
   value,
   onChange,
+  options,
   id,
-  name,
   required = false,
-  type = "text",
-  min,
-  max,
-  placeholder = "",
-  maxLength = 100,
   infoTitle,
   infoText,
   customClass = "",
@@ -53,29 +50,30 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(({
         )}
       </div>
 
-      <input
+      <select
         ref={ref}
-        type={type}
         id={id || name}
         name={name}
         value={value}
         onChange={onChange}
         required={required}
-        min={min}
-        max={max}
-        maxLength={maxLength}
-        placeholder={placeholder}
         className={`p-2 border rounded text-gray-800 bg-white ${customClass}`}
-      />
+      >
+        {options.map((opt) => (
+          <option key={opt.value} value={opt.value}>
+            {opt.label}
+          </option>
+        ))}
+      </select>
 
       <AlertDialog
-        isOpen={showHelpDialog}
-        titulo={infoTitle}
-        mensagem={infoText || ""}
-        onClose={() => setShowHelpDialog(false)}
+          isOpen={showHelpDialog}
+          titulo={infoTitle}
+          mensagem={infoText || ""}
+          onClose={() => setShowHelpDialog(false)}
       />
     </div>
   );
 });
 
-export default InputField;
+export default SelectInput;

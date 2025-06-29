@@ -1,18 +1,15 @@
 import { useState, forwardRef } from "react";
 import type { ChangeEvent } from "react";
-import { FaInfoCircle } from "react-icons/fa";
 import AlertDialog from "../AlertDialog/AlertDialog";
+import { FaInfoCircle } from "react-icons/fa";
 
-interface InputFieldProps {
+interface TextAreaInputProps {
   label: string;
   value: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  id?: string;
+  onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
   name: string;
+  id?: string;
   required?: boolean;
-  type?: string;
-  min?: string | number;
-  max?: string | number;
   placeholder?: string;
   maxLength?: number;
   infoTitle?: string;
@@ -20,18 +17,15 @@ interface InputFieldProps {
   customClass?: string;
 }
 
-const InputField = forwardRef<HTMLInputElement, InputFieldProps>(({
+const TextAreaInput = forwardRef<HTMLTextAreaElement, TextAreaInputProps>(({
   label,
   value,
   onChange,
-  id,
   name,
+  id,
   required = false,
-  type = "text",
-  min,
-  max,
   placeholder = "",
-  maxLength = 100,
+  maxLength = 300,
   infoTitle,
   infoText,
   customClass = "",
@@ -53,21 +47,18 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(({
         )}
       </div>
 
-      <input
+      <textarea
         ref={ref}
-        type={type}
         id={id || name}
         name={name}
         value={value}
         onChange={onChange}
         required={required}
-        min={min}
-        max={max}
         maxLength={maxLength}
         placeholder={placeholder}
-        className={`p-2 border rounded text-gray-800 bg-white ${customClass}`}
+        className={`p-2 border rounded resize-y text-gray-800 bg-white ${customClass}`}
       />
-
+      
       <AlertDialog
         isOpen={showHelpDialog}
         titulo={infoTitle}
@@ -78,4 +69,4 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(({
   );
 });
 
-export default InputField;
+export default TextAreaInput;
