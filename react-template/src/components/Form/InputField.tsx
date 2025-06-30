@@ -65,7 +65,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(({
         max={max}
         maxLength={maxLength}
         placeholder={placeholder}
-        className={`p-2 border rounded text-gray-800 bg-white ${customClass}`}
+        className={`p-2 border rounded text-gray-800 autofill:bg-white autofill:text-gray-800 bg-white ${customClass}`}
       />
 
       <AlertDialog

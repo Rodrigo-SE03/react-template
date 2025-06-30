@@ -2,22 +2,27 @@ import React, { useState } from "react";
 import InputField from "../components/Form/InputField";
 import TextAreaInput from "../components/Form/TextAreaInput"
 import SelectInput from "../components/Form/SelectInput";
-// import Checkbox from "../components/Form/Checkbox";
-// import SubmitButton from "../components/Form/SubmitButton";
+import Checkbox from "../components/Form/Checkbox";
+import SubmitButton from "../components/Form/SubmitButton";
+import MultiSelect from "../components/Form/MultiSelect";
 
 function FormDemo() {
   const [formData, setFormData] = useState({
     nome: "",
+    data: "",
     descricao: "",
     categoria: "",
     termos: false,
+    tags: [] as string[],
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
+    const { name, value, type } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: type === "checkbox"
+        ? (e.target as HTMLInputElement).checked
+        : value,
     }));
   };
 
@@ -35,6 +40,17 @@ function FormDemo() {
           label="Nome"
           name="nome"
           value={formData.nome}
+          onChange={handleChange}
+          infoTitle="Nome do usuário"
+          infoText="Por favor, insira seu nome completo."
+          required
+        />
+
+        <InputField
+          label="Data"
+          name="data"
+          type="date"
+          value={formData.data}
           onChange={handleChange}
           infoTitle="Nome do usuário"
           infoText="Por favor, insira seu nome completo."
@@ -60,14 +76,30 @@ function FormDemo() {
           ]}
         />
 
-        {/* <Checkbox
+        <Checkbox
           label="Aceito os termos"
           name="termos"
           checked={formData.termos}
           onChange={handleChange}
-        /> */}
+        />
 
-        {/* <SubmitButton text="Enviar" /> */}
+        <MultiSelect
+          label="Tags"
+          name="tags"
+          selectedValues={formData.tags}
+          onChange={(val) =>
+            setFormData((prev) => ({ ...prev, tags: val }))
+          }
+          options={[
+            { value: "frontend", label: "Frontend" },
+            { value: "backend", label: "Backend" },
+            { value: "fullstack", label: "Fullstack" },
+          ]}
+          infoTitle="Categorias"
+          infoText="Você pode escolher mais de uma categoria para este item."
+        />
+
+        <SubmitButton text="Enviar" customClass="w-full" />
 
       </form>
     </div>
