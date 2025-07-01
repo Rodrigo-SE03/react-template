@@ -40,8 +40,11 @@ const SelectInput: React.FC<SelectInputProps> = ({
       <div className="flex items-center font-semibold">
         <label htmlFor={name}>{label}</label>
         {infoTitle && infoText && (
-          <button onClick={() => setShowHelpDialog(true)}
-                  className="ml-2 p-0 bg-transparent border-none cursor-pointer text-gray-500 hover:text-gray-700">
+          <button 
+            type="button"
+            onClick={() => setShowHelpDialog(true)}
+            className="ml-2 p-0 bg-transparent border-none cursor-pointer text-gray-500 hover:text-gray-700"
+          >
             <FaInfoCircle size={16} />
           </button>
         )}

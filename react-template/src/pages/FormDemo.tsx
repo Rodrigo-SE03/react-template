@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-import InputField from "../components/Form/InputField";
-import TextAreaInput from "../components/Form/TextAreaInput"
-import SelectInput from "../components/Form/SelectInput";
-import Checkbox from "../components/Form/Checkbox";
-import SubmitButton from "../components/Form/SubmitButton";
-import MultiSelect from "../components/Form/MultiSelect";
+import { InputField, TextAreaInput, MultiSelect, SelectInput, Checkbox, SubmitButton } from "../components/Form";
 
 function FormDemo() {
   const [formData, setFormData] = useState({

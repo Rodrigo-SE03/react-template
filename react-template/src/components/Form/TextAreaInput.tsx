@@ -39,6 +39,7 @@ const TextAreaInput = forwardRef<HTMLTextAreaElement, TextAreaInputProps>(({
         {infoTitle && infoText && (
           <button
             type="button"
+            title={`info-${name}`}
             onClick={() => setShowHelpDialog(true)}
             className="text-gray-500 hover:text-gray-700 border-none bg-transparent cursor-pointer p-0 ml-2"
           >
