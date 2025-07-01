@@ -57,7 +57,7 @@ const TextAreaInput = forwardRef<HTMLTextAreaElement, TextAreaInputProps>(({
         required={required}
         maxLength={maxLength}
         placeholder={placeholder}
-        className={`p-2 border rounded resize-y text-gray-800 bg-white ${customClass}`}
+        className={`min-h-12 max-h-64 p-2 border rounded resize-y text-gray-800 bg-white ${customClass}`}
       />
       
       <AlertDialog

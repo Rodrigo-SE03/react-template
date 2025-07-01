@@ -28,7 +28,7 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
   }, []);
 
   return (
-    <header className="bg-gray-800 shadow-md px-4 py-3 flex items-center justify-between">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-gray-800 shadow-md px-4 py-3 flex items-center justify-between h-16">
       {/* Esquerda */}
       <div className="flex items-center gap-4">
         <button
@@ -76,7 +76,7 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
           <div className="absolute right-0 top-5 mt-2 bg-white border rounded shadow z-50">
             <NavLink
               to="/conta"
-              className="block px-4 py-2 text-sm hover:bg-gray-100"
+              className="text-black block px-4 py-2 text-sm hover:bg-gray-100 hover:text-black"
               onClick={() => setDropdownOpen(false)}
             >
               Conta

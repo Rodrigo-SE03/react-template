@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { InputField, TextAreaInput, MultiSelect, SelectInput, Checkbox, SubmitButton } from "../components/Form";
-import Header from "../components/Header/Header";
 
 function FormDemo() {
   const [formData, setFormData] = useState({
@@ -28,11 +27,9 @@ function FormDemo() {
   };
 
   return (
-    <>
-    <Header onToggleSidebar={() => {}} />
-    <div className="max-w-xl mx-auto p-4">
+    <div className="max-w-3xl mx-auto items-center justify-center flex flex-col p-4">
       <h1 className="text-2xl font-bold mb-4">Formulário de Demonstração</h1>
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4 w-full">
 
         <InputField
           label="Nome"
@@ -100,7 +97,6 @@ function FormDemo() {
 
       </form>
     </div>
-    </>
   );
 }
 
