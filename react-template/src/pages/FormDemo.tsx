@@ -11,12 +11,12 @@ function FormDemo() {
     nome: "",
     data: "",
     descricao: "",
-    categoria: "",
+    categoria: null,
     termos: false,
     tags: [] as string[],
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (e: { target: { name: string; value: any; type?: string; checked?: boolean } }) => {
     const { name, value, type } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -64,6 +64,21 @@ function FormDemo() {
           onChange={handleChange}
         />
 
+        <MultiSelect
+          label="Tags"
+          name="tags"
+          values={formData.tags}
+          onChange={handleChange}
+          options={[
+            { value: "frontend", label: "Frontend" },
+            { value: "backend", label: "Backend" },
+            { value: "infra", label: "Infraestrutura" },
+            { value: "fullstack", label: "Fullstack" },
+          ]}
+          infoTitle="Tecnologias"
+          infoText="Você pode selecionar múltiplas áreas de interesse."
+        />
+
         <SelectInput
           label="Categoria"
           name="categoria"
@@ -81,22 +96,6 @@ function FormDemo() {
           name="termos"
           checked={formData.termos}
           onChange={handleChange}
-        />
-
-        <MultiSelect
-          label="Tags"
-          name="tags"
-          selectedValues={formData.tags}
-          onChange={(val) =>
-            setFormData((prev) => ({ ...prev, tags: val }))
-          }
-          options={[
-            { value: "frontend", label: "Frontend" },
-            { value: "backend", label: "Backend" },
-            { value: "fullstack", label: "Fullstack" },
-          ]}
-          infoTitle="Categorias"
-          infoText="Você pode escolher mais de uma categoria para este item."
         />
 
         <SubmitButton text="Enviar" customClass="w-full" />
