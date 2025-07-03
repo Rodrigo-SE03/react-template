@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { FaHome, FaWpforms } from "react-icons/fa";
+import { FaHome, FaWpforms, FaTable } from "react-icons/fa";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -10,7 +10,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   const links = [
     { path: "/", label: "Início", icon: <FaHome /> },
     { path: "/form", label: "Formulário", icon: <FaWpforms /> },
-    // adicione mais links conforme necessário
+    { path: "/tabela", label: "Tabela", icon: <FaTable /> },
   ];
 
   return (

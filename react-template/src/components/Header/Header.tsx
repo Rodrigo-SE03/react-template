@@ -15,6 +15,7 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
   const mainLinks = [
     { path: "/", label: "Início" },
     { path: "/form", label: "Formulário" },
+    { path: "/tabela", label: "Tabela" },
   ];
 
   useEffect(() => {

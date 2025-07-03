@@ -1,6 +1,6 @@
 import { useState, forwardRef } from "react";
 import type { ChangeEvent } from "react";
-import AlertDialog from "../AlertDialog/AlertDialog";
+import AlertDialog from "../Modals/AlertDialog/AlertDialog";
 import { FaInfoCircle } from "react-icons/fa";
 
 interface TextAreaInputProps {

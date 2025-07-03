@@ -13,6 +13,11 @@ export const getColumns = (table_name: TableName) => {
             { label: "Email", key: "email" },
             { label: "Telefone", key: "telefone" },
             { label: "Endereço", key: "endereco" }
+        ],
+        "servicos": [
+            { label: "Nome", key: "nome" },
+            { label: "Ativo", key: "ativo", type: "boolean" },
+            { label: "Preço", key: "preco", type: "money" }
         ]
     }
 

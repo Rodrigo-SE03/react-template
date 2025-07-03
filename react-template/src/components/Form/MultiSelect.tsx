@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ReactSelect from "react-select";
 import type { OnChangeValue } from "react-select";
-import AlertDialog from "../AlertDialog/AlertDialog";
+import AlertDialog from "../Modals/AlertDialog/AlertDialog";
 import { FaInfoCircle } from "react-icons/fa";
 import type { Option } from "../../types/forms";
 

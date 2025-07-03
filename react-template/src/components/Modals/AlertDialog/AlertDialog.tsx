@@ -36,7 +36,7 @@ const AlertDialog: React.FC<AlertDialogProps> = ({ isOpen, titulo, mensagem, onC
           visible && isOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"
         }`}
       >
-        {titulo && <h2 className="text-lg font-bold mb-2">{titulo}</h2>}
+        {titulo && <h2 className="text-lg font-bold mb-2 text-center">{titulo}</h2>}
         <p className="mb-4">{mensagem}</p>
         <div className="flex justify-center">
           <button
