@@ -6,6 +6,7 @@ import ConfirmDialog from "../Modals/ConfirmDialog/ConfirmDialog";
 import DefaultRow from "./Rows/DefaultRow";
 import DefaultDataForm from "./DataForms/DefaultDataForm";
 import Modal from "../Modals/Modal";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import type { DataTableColumn, TableName } from "../../types/dataTable";
 
 interface MainTableProps {
@@ -29,6 +30,8 @@ const MainTable: React.FC<MainTableProps> = ({
 
   const [editingItem, setEditingItem] = useState<any | null>(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -68,6 +71,7 @@ const MainTable: React.FC<MainTableProps> = ({
       setEditingItem(null);
     } catch (error) {
       console.error("Erro ao editar:", error);
+      setIsEditModalOpen(false);
       setAlertInfo({
         isOpen: true,
         message: "Erro ao editar o registro.",
@@ -88,6 +92,7 @@ const MainTable: React.FC<MainTableProps> = ({
       await removerRegistro(tableName, itemToDelete.id);
     } catch (error) {
       console.error("Erro ao remover registro:", error);
+      setConfirmDeleteOpen(false);
       setAlertInfo({
         isOpen: true,
         message: "Erro ao remover o registro. Verifique o console para mais detalhes.",
@@ -102,9 +107,12 @@ const MainTable: React.FC<MainTableProps> = ({
   };
 
   return (
-    <div className="overflow-x-auto border border-gray-300 rounded-md mt-6">
+    <>
+    <div className={`overflow-x-auto mt-6 ${!loading && "border border-gray-300 rounded-md"}`}>
       {loading ? (
-        <div className="p-4 text-center">Carregando...</div>
+        <div className="p-6">
+          <LoadingSpinner size={50} text="Carregando" />
+        </div>
       ) : (
         <table className="min-w-full divide-y divide-gray-300">
           <thead className="bg-gray-100">
@@ -159,7 +167,37 @@ const MainTable: React.FC<MainTableProps> = ({
           onCancel={() => setIsEditModalOpen(false)}
         />
       </Modal>
+      <Modal isOpen={isAddModalOpen} onClose={() => setIsAddModalOpen(false)}>
+        <DefaultDataForm
+          columns={columns}
+          initialData={{}}
+          onSubmit={async (formData) => {
+            try {
+              const newItem = await adicionarRegistro(tableName, formData);
+              setData((prev) => [...prev, newItem]);
+              setIsAddModalOpen(false);
+            } catch (error) {
+              console.error("Erro ao adicionar registro:", error);
+              setAlertInfo({
+                isOpen: true,
+                message: "Erro ao adicionar o registro.",
+                title: "Erro",
+              });
+            }
+          }}
+          onCancel={() => setIsAddModalOpen(false)}
+        />
+      </Modal>
     </div>
+    <div className="mt-4">
+      <button
+        onClick={() => setIsAddModalOpen(true)}
+        className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+      >
+        Adicionar Novo
+      </button>
+    </div>
+    </>
   );
 };
 
