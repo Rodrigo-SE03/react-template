@@ -32,6 +32,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const logout = () => {
     clearAccessToken();
     setUser(null);
+    window.location.href = "/login";
   };
 
   const fetchUser = async () => {
