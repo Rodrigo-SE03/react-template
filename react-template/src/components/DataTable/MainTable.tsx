@@ -56,6 +56,22 @@ const MainTable: React.FC<MainTableProps> = ({
     fetchData();
   }, [tableName]);
 
+  const handleAddSubmit = async (formData: any) => {
+    try {
+      const novo = await adicionarRegistro(tableName, formData);
+      setData((prev) => [...prev, novo]);
+      setIsAddModalOpen(false);
+    } catch (error) {
+      setIsAddModalOpen(false);
+      console.error("Erro ao adicionar:", error);
+      setAlertInfo({
+        isOpen: true,
+        message: "Erro ao adicionar o registro.",
+        title: "Erro",
+      });
+    }
+  };
+
   const handleEditClick = (item: any) => {
     setEditingItem(item);
     setIsEditModalOpen(true);
@@ -108,12 +124,14 @@ const MainTable: React.FC<MainTableProps> = ({
 
   return (
     <>
-    <div className={`overflow-x-auto mt-6 ${!loading && "border border-gray-300 rounded-md"}`}>
-      {loading ? (
+    {loading ? (
         <div className="p-6">
           <LoadingSpinner size={50} text="Carregando" />
         </div>
       ) : (
+    <>
+    <div className={`overflow-x-auto mt-6 ${!loading && "border border-gray-300 rounded-md"}`}>
+      
         <table className="min-w-full divide-y divide-gray-300">
           <thead className="bg-gray-100">
             <tr>
@@ -140,8 +158,18 @@ const MainTable: React.FC<MainTableProps> = ({
             ))}
           </tbody>
         </table>
-      )}
-      <ConfirmDialog
+    </div>
+    <div className="mt-4">
+      <button
+        onClick={() => setIsAddModalOpen(true)}
+        className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+      >
+        Adicionar Novo
+      </button>
+    </div>
+    </>
+    )}
+    <ConfirmDialog
         isOpen={confirmDeleteOpen}
         title="Confirmar Exclusão"
         message="Tem certeza que deseja excluir este item? Essa ação não pode ser desfeita."
@@ -171,32 +199,10 @@ const MainTable: React.FC<MainTableProps> = ({
         <DefaultDataForm
           columns={columns}
           initialData={{}}
-          onSubmit={async (formData) => {
-            try {
-              const newItem = await adicionarRegistro(tableName, formData);
-              setData((prev) => [...prev, newItem]);
-              setIsAddModalOpen(false);
-            } catch (error) {
-              console.error("Erro ao adicionar registro:", error);
-              setAlertInfo({
-                isOpen: true,
-                message: "Erro ao adicionar o registro.",
-                title: "Erro",
-              });
-            }
-          }}
+          onSubmit={handleAddSubmit}
           onCancel={() => setIsAddModalOpen(false)}
         />
       </Modal>
-    </div>
-    <div className="mt-4">
-      <button
-        onClick={() => setIsAddModalOpen(true)}
-        className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
-      >
-        Adicionar Novo
-      </button>
-    </div>
     </>
   );
 };

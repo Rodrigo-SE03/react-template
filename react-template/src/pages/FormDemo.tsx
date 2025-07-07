@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { InputField, TextAreaInput, MultiSelect, SelectInput, Checkbox, SubmitButton } from "../components/Form";
+import { InputField, TextAreaInput, MultiSelect, SelectInput, Checkbox, SubmitButton, FileInput } from "../components/Form";
 
 function FormDemo() {
   const [formData, setFormData] = useState({
@@ -9,6 +9,7 @@ function FormDemo() {
     categoria: null,
     termos: false,
     tags: [] as string[],
+    documento: null as File | null,
   });
 
   const handleChange = (e: { target: { name: string; value: any; type?: string; checked?: boolean } }) => {
@@ -85,6 +86,17 @@ function FormDemo() {
             { value: "opcao2", label: "Opção 2" },
           ]}
         />
+
+        <FileInput
+          label="Selecionar Documento"
+          name="documento"
+          onChange={handleChange}
+          accept=".pdf,.docx"
+          infoTitle="Formatos Permitidos"
+          infoText="Você pode enviar arquivos PDF ou DOCX com até 5MB."
+          maxSizeMB={5}
+        />
+
 
         <Checkbox
           label="Aceito os termos"
